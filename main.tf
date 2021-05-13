@@ -148,6 +148,10 @@ resource "aws_db_subnet_group" "default" {
   name       = module.this.id
   subnet_ids = var.subnet_ids
   tags       = module.this.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group" "default" {
@@ -157,6 +161,10 @@ resource "aws_security_group" "default" {
   description = "Allow inbound traffic from the security groups"
   vpc_id      = var.vpc_id
   tags        = module.this.tags
+
+  lifecycle {
+    create_before_destroy = true
+  }
 }
 
 resource "aws_security_group_rule" "ingress_security_groups" {
